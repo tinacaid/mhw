@@ -14,8 +14,10 @@ return [
     */
 
     'defaults' => [
-        'guard' => 'web',
-        'passwords' => 'users',
+//        'guard' => 'web',
+//        'passwords' => 'users',
+        'guard' => 'administrator', // 默认使用管理员守卫
+        'passwords' => 'admins', // 密码重置的提供程序
     ],
 
     /*
@@ -36,14 +38,12 @@ return [
     */
 
     'guards' => [
-        'web' => [
-            'driver' => 'session',
-            'provider' => 'users',
+
+        'administrator' => [
+            'driver' => 'jwt', // 使用 JWT 驱动
+            'provider' => 'admins', // 指向 admins 提供程序
         ],
-        'admin' => [
-            'driver' => 'jwt',
-            'provider' => 'admins',
-        ],
+
         'user' => [
             'driver' => 'jwt',
             'provider' => 'users',
@@ -54,11 +54,19 @@ return [
             'provider' => 'student',
             'hash' => false,
         ],
-        'administrator' => [
-            'driver' => 'jwt',  // 使用 JWT 驱动
-            'provider' => 'administrators',  // 指向新的老师提供者
+
+        'web' => [
+            'driver' => 'session',
+            'provider' => 'users',
+        ],
+
+        'api' => [
+            'driver' => 'token',
+            'provider' => 'admins',
             'hash' => false,
         ],
+
+
     ],
 
     /*
@@ -79,34 +87,23 @@ return [
     */
 
     'providers' => [
-//        'users' => [
-//            'driver' => 'eloquent',
-//            'model' => App\Models\User::class,
-//        ],
-        'admins' => [
-            'driver' => 'eloquent',
-            'model' => App\Models\Admins::class,
-        ],
         'users' => [
             'driver' => 'eloquent',
-            'model' => App\Models\Users::class, // 这应该是你的用户模型的类名
+            'model' => App\Models\User::class,
         ],
 
 
-        'administratorss' => [
+        'admins' => [
             'driver' => 'eloquent',
-            'model' => App\Models\WdwAdminRegisterModel::class,
+            'model' => App\Models\admins::class, // 管理员的模型
         ],
 
-        'studentss' => [
+
+        'student' => [
             'driver' => 'eloquent',
             'model' => App\Models\students::class,
         ],
 
-        // 'users' => [
-        //     'driver' => 'database',
-        //     'table' => 'users',
-        // ],
     ],
 
     /*
