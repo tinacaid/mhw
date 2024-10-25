@@ -31,7 +31,7 @@ return [
     | users are actually retrieved out of your database or other storage
     | mechanisms used by this application to persist your user's data.
     |
-    | Supported: "session"
+    | Supported: "session", "token"
     |
     */
 
@@ -47,16 +47,15 @@ return [
         'user' => [
             'driver' => 'jwt',
             'provider' => 'users',
-
         ],
-        'student' => [
+        'students' => [
             'driver' => 'jwt',
-            'provider' => 'student',
+            'provider' => 'students',
             'hash' => false,
         ],
-        'administrator' => [
-            'driver' => 'jwt',  // 使用 JWT 驱动
-            'provider' => 'administrators',  // 指向新的老师提供者
+        'admins' => [
+            'driver' => 'jwt',
+            'provider' => 'admins',
             'hash' => false,
         ],
     ],
@@ -79,34 +78,18 @@ return [
     */
 
     'providers' => [
-//        'users' => [
-//            'driver' => 'eloquent',
-//            'model' => App\Models\User::class,
-//        ],
-        'admins' => [
-            'driver' => 'eloquent',
-            'model' => App\Models\Admins::class,
-        ],
         'users' => [
             'driver' => 'eloquent',
-            'model' => App\Models\Users::class, // 这应该是你的用户模型的类名
+            'model' => App\Models\User::class,
         ],
-
-
-        'administratorss' => [
+        'admins' => [
             'driver' => 'eloquent',
-            'model' => App\Models\WdwAdminRegisterModel::class,
+            'model' => App\Models\admins::class,
         ],
-
-        'studentss' => [
+        'students' => [
             'driver' => 'eloquent',
             'model' => App\Models\students::class,
         ],
-
-        // 'users' => [
-        //     'driver' => 'database',
-        //     'table' => 'users',
-        // ],
     ],
 
     /*
