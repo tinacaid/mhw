@@ -13,7 +13,7 @@ return [
     |
     */
 
-    'default' => env('FILESYSTEM_DRIVER', 'local'),
+    'default' => env('FILESYSTEM_DRIVER', 'oss'),
 
     /*
     |--------------------------------------------------------------------------
@@ -29,6 +29,18 @@ return [
     */
 
     'disks' => [
+        'oss' => [
+            'driver'        => 'oss',
+            'access_id'     => env('OSS_ACCESS_KEY_ID'),
+            'access_key'    => env('OSS_ACCESS_KEY_SECRET'),
+            'bucket'        => env('OSS_BUCKET'),
+            'endpoint'      => env('OSS_ENDPOINT'),
+            'cdnDomain'     => env('OSS_CDN_DOMAIN', ''), // 如果有CDN可以填写
+            'ssl'           => env('OSS_SSL', false), // 是否使用https
+            'isCName'       => env('OSS_IS_CNAME', false), // 如果使用CName
+            'debug'         => env('OSS_DEBUG', false)
+        ],
+
 
         'local' => [
             'driver' => 'local',

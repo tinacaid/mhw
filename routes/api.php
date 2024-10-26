@@ -1,8 +1,9 @@
 <?php
 
-use App\Http\Controllers\WwjController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\WdwController;
+use App\Http\Controllers\LywController;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,18 +15,45 @@ use Illuminate\Support\Facades\Route;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
+//学生查询竞赛之星信息
+Route::GET('/student/competition', [WdwController::class, 'check_competition']);
+//学生修改竞赛之星信息
+Route::POST('/student/competition/{student_id}', [WdwController::class, 'revise_competition']);
+//学生删除竞赛之星信息
+Route::DELETE('/student/competition/{student_id}', [WdwController::class, 'delete_competition']);
+
+//学生报名科研之星项目
+Route::POST('/student/research/create_project/{student_id}', [WdwController::class, 'create_research']);
+//学生查询科研之星项目
+Route::GET('/student/research/project', [WdwController::class, 'check_research']);
+//学生修改科研之星项目
+Route::POST('/student/research/project/{student_id}', [WdwController::class, 'revise_research']);
+//学生删除科研之星项目
+Route::DELETE('/student/research/project/{student_id}', [WdwController::class, 'delete_research']);
 
 
-    Route::post('user/register', [WwjController::class, 'Wwjregister']);
-    Route::post('user/sendVerificationCode', [WwjController::class, 'sendVerificationCode'])->name('send.verification.code');
-    Route::post('user/forgotPassword', [WwjController::class, 'forgotPassword']);
-    Route::get('admin/export-competition-star', [WwjController::class, 'exportCompetitionStar']);
-    Route::get('admin/export-innovation-star', [WwjController::class, 'exportInnovationStar']);
-    Route::get('admin/export-science-star', [WwjController::class, 'exportScienceStar']);
-    Route::post('user/viewScienceStar', [WwjController::class, 'viewScienceStar']);
-//    Route::post('certificateContent', [WwjController::class, 'certificateContent']);
+
+//老师查看竞赛之星状态
+Route::GET('/admin/students', [WdwController::class, 'teacher_check_competition']);
+//老师修改科研之星项目状态
+Route::POST('/admin/students/{student_id}/status', [WdwController::class, 'revise_research_status']);
 
 
+Route::post('/student/login', [LywController::class, 'LywStudentLogin']);//学生登录
+Route::post('/admin/login', [LywController::class, 'LywAdminLogin']);//老师登录
+Route::post('/student/register', [LywController::class, 'LywRegistration']);//学生注册
+Route::post('/student/sendVerificationCode', [LywController::class, 'sendVerificationCode'])->name('send.verification.code');//验证码
+Route::post('student/forgotPassword', [LywController::class, 'forgotPassword']);//忘记密码
 
+Route::middleware('jwt.role:students')->prefix('students')->group(function () {
+    Route::post('/logout', [LywController::class, 'logoutStudent']);
+});// 学生登出接口
+
+Route::middleware('jwt.role:admins')->prefix('admins')->group(function () {
+    Route::post('logout', [LywController::class, 'logoutAdmin']);
+});// 管理员登出接口
+Route::post('user/forgotPassword', [LywController::class, 'LywUpdatePassword']);//忘记密码
+
+Route::post('admin/password', [LywController::class, 'AdminPassword']);//老师密码加密
 
 

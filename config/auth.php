@@ -40,23 +40,15 @@ return [
             'driver' => 'session',
             'provider' => 'users',
         ],
-        'admin' => [
-            'driver' => 'jwt',
-            'provider' => 'admins',
-        ],
-        'user' => [
-            'driver' => 'jwt',
-            'provider' => 'users',
 
-        ],
-        'student' => [
+        'students' => [
             'driver' => 'jwt',
-            'provider' => 'student',
+            'provider' => 'students',
             'hash' => false,
         ],
-        'administrator' => [
+        'admins' => [
             'driver' => 'jwt',  // 使用 JWT 驱动
-            'provider' => 'administrators',  // 指向新的老师提供者
+            'provider' => 'admins',  // 指向新的老师提供者
             'hash' => false,
         ],
     ],
@@ -85,7 +77,7 @@ return [
 //        ],
         'admins' => [
             'driver' => 'eloquent',
-            'model' => App\Models\Admins::class,
+            'model' => App\Models\admins::class,
         ],
         'users' => [
             'driver' => 'eloquent',
@@ -98,7 +90,7 @@ return [
             'model' => App\Models\WdwAdminRegisterModel::class,
         ],
 
-        'studentss' => [
+        'students' => [
             'driver' => 'eloquent',
             'model' => App\Models\students::class,
         ],

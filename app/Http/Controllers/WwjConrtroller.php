@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-class WkxController
+class WwjConrtroller
 {
 
 }
