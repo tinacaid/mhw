@@ -6,11 +6,20 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Tymon\JWTAuth\Contracts\JWTSubject;
 use Exception;
 
+
 class competition_stars extends Authenticatable implements JWTSubject {
+
+use Illuminate\Notifications\Notifiable;
+ // 或者 use Laravel\Sanctum\HasApiTokens;
+class competition_stars extends Authenticatable implements JWTSubject
+{
+
     protected $table = "competition_stars";
     public $timestamps = true;
     protected $primaryKey = "id";
     protected $guarded = [];
+
+    use Notifiable;
 
     public function getJWTIdentifier()
     {
@@ -77,3 +86,8 @@ class competition_stars extends Authenticatable implements JWTSubject {
         }
     }
 }
+}
+
+
+
+

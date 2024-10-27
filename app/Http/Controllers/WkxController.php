@@ -1,4 +1,3 @@
-<?php
 
 namespace App\Http\Controllers;
 
@@ -38,3 +37,4 @@ class WkxController extends Controller
         }
     }
 }
+

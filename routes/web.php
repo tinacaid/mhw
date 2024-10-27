@@ -15,9 +15,10 @@ use App\Http\Controllers\mohuchaxun;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+Route::get('/upload-form', function () {
+    return view('upload');
 });
+
 
 //Route::get('/upload', function () {
 //    return view('upload');
@@ -33,4 +34,7 @@ Route::get('/upload-form', function () {
 });
 
 Route::post('/upload', [OSSUploadController::class, 'upload']);
+
+
+Route::post('/upload', [\App\Http\Controllers\OSSUploadController::class, 'upload']);
 

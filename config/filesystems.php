@@ -67,7 +67,16 @@ return [
             'endpoint' => env('AWS_ENDPOINT'),
             'use_path_style_endpoint' => env('AWS_USE_PATH_STYLE_ENDPOINT', false),
         ],
-
+        'oss' => [
+            'driver'     => 'oss',
+            'access_id'  => env('OSS_ACCESS_ID'), // 阿里云Access Key ID
+            'access_key' => env('OSS_ACCESS_KEY'), // 阿里云Access Key Secret
+            'bucket'     => env('OSS_BUCKET'),    // 存储空间名称
+            'endpoint'   => env('OSS_ENDPOINT'),  // 访问的OSS节点
+            'ssl'        => env('OSS_SSL', false),// 是否使用https
+            'isCName'    => env('OSS_IS_CNAME', false), // 是否使用自定义域名
+            'cdnDomain'  => env('OSS_CDN_DOMAIN', null), // 自定义域名
+        ],
     ],
 
     /*

@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+
 use Exception;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -54,3 +55,34 @@ class software_stars extends Model
         }
     }
 }
+
+use Illuminate\Foundation\Auth\User as Authenticatable;
+use Tymon\JWTAuth\Contracts\JWTSubject;
+use Exception;
+use Illuminate\Notifications\Notifiable;
+// 或者 use Laravel\Sanctum\HasApiTokens;
+class software_stars extends Authenticatable implements JWTSubject
+{
+    protected $table = "software_stars";
+    public $timestamps = true;
+    protected $primaryKey = "id";
+    protected $guarded = [];
+
+    use Notifiable;
+
+    public function getJWTIdentifier()
+    {
+        //getKey() 方法用于获取模型的主键值
+        return $this->getKey();
+    }
+
+    public function getJWTCustomClaims()
+    {
+        return ['role => software_stars'];
+    }
+}
+
+
+
+
+

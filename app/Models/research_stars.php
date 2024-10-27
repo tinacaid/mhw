@@ -7,10 +7,21 @@ use Tymon\JWTAuth\Contracts\JWTSubject;
 use Exception;
 
 class research_stars extends Authenticatable implements JWTSubject {
+
+use Illuminate\Notifications\Notifiable;
+ // 或者 use Laravel\Sanctum\HasApiTokens;
+class research_stars extends Authenticatable implements JWTSubject
+{
+
     protected $table = "research_stars";
     public $timestamps = true;
     protected $primaryKey = "id";
     protected $guarded = [];
+
+
+
+    use Notifiable;
+
 
     public function getJWTIdentifier()
     {
@@ -20,6 +31,7 @@ class research_stars extends Authenticatable implements JWTSubject {
 
     public function getJWTCustomClaims()
     {
+
         return ['role => research_stars'];
     }
 
@@ -104,3 +116,9 @@ class research_stars extends Authenticatable implements JWTSubject {
     }
 
 }
+
+        return ['role =>research_stars'];
+    }
+}
+
+

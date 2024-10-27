@@ -1,4 +1,3 @@
-<?php
 
 namespace App\Http\Controllers;
 
@@ -8,3 +7,4 @@ class WwjController extends Controller
 {
     //
 }
+
