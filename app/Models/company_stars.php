@@ -2,6 +2,11 @@
 
 namespace App\Models;
 
+
+class company_stars
+{
+
+=======
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Tymon\JWTAuth\Contracts\JWTSubject;
 use Exception;

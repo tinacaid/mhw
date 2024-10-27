@@ -2,6 +2,13 @@
 
 namespace App\Models;
 
+ masteruse Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+
+class students extends Model
+{
+    use HasFactory;
+
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Tymon\JWTAuth\Contracts\JWTSubject;
 use Exception;
@@ -26,6 +33,7 @@ class students extends Authenticatable implements JWTSubject
     {
         return ['role => students'];
     }
+
 }
 
 

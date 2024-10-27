@@ -2,6 +2,14 @@
 
 namespace App\Models;
 
+
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+
+class admins extends Model
+{
+    use HasFactory;
+
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Tymon\JWTAuth\Contracts\JWTSubject;
 use Exception;
@@ -26,4 +34,5 @@ class admins extends Authenticatable implements JWTSubject
     {
         return ['role => admins'];
     }
+
 }

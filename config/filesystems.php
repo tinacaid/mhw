@@ -13,7 +13,7 @@ return [
     |
     */
 
-    'default' => env('FILESYSTEM_DRIVER', 'local'),
+    'default' => env('FILESYSTEM_DRIVER', 'oss'),
 
     /*
     |--------------------------------------------------------------------------
@@ -28,7 +28,22 @@ return [
     |
     */
 
+
     'disks' => [
+        'oss' => [
+            'driver'        => 'oss',
+            'key'           =>('LTAI5t6xhoji8e65YCFnPxzf'),
+            'secret'        => env('UQPSg0JtFmyWN45Jn7YpwVG48mfaE1'),
+            'access_id'     => env('OSS_ACCESS_KEY_ID'),
+            'access_key'    => env('OSS_ACCESS_KEY_SECRET'),
+            'bucket'        => env('shangchuan-kx@1079410676208179.onaliyun.com'),
+            'endpoint'      => env('http://oss-cn-chengdu-internal.aliyuncs.com'),
+            'cdnDomain'     => env('OSS_CDN_DOMAIN', ''), // 如果有CDN可以填写
+            'ssl'           => env('OSS_SSL', false), // 是否使用https
+            'isCName'       => env('OSS_IS_CNAME', false), // 如果使用CName
+            'debug'         => env('OSS_DEBUG', false)
+        ],
+
 
         'local' => [
             'driver' => 'local',

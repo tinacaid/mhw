@@ -3,7 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
     <meta name="csrf-token" content="{{ csrf_token() }}"> <!-- 这里是 CSRF 令牌 -->
+
     <title>Upload File to Aliyun OSS</title>
     <style>
         body {
@@ -37,17 +40,26 @@
     <!-- 上传按钮 -->
     <button type="submit">Upload</button>
 </form>
+
 <p id="error"></p>
+
 <!-- 显示上传成功或错误消息 -->
 <div id="message" class="message" style="display: none;"></div>
 
 <script>
     document.getElementById('uploadForm').addEventListener('submit', async function(e) {
+
+        e.preventDefault(); // 阻止表单默认提交行为
+
         e.preventDefault(); // 阻止表单的默认提交行为
+
 
         const form = document.getElementById('uploadForm');
         const formData = new FormData(form);
         const messageDiv = document.getElementById('message');
+
+
+        try {
 
         // 清空之前的消息
         messageDiv.style.display = 'none';
@@ -56,11 +68,19 @@
         try {
             const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
 
+
             // 发送 POST 请求上传文件
             const response = await fetch('/upload', {
                 method: 'POST',
                 body: formData,
                 headers: {
+
+                    'X-CSRF-TOKEN': formData.get('_token') // 添加 CSRF 令牌
+                }
+            });
+
+            const result = await response.json(); // 解析 JSON 响应
+
                     'X-CSRF-TOKEN': csrfToken // 添加 CSRF 令牌到请求头
                 }
             });
@@ -77,6 +97,7 @@
                 throw new Error('Unexpected server response. Not valid JSON.');
             }
 
+
             // 如果上传成功，显示文件链接
             if (response.ok) {
                 messageDiv.style.display = 'block';
@@ -86,6 +107,9 @@
                 throw new Error(result.error || 'File upload failed');
             }
         } catch (error) {
+
+            // 处理上传失败的情况
+
             messageDiv.style.display = 'block';
             messageDiv.innerHTML = `<strong>Error:</strong> ${error.message}`;
             messageDiv.style.color = 'red';
