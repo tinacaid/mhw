@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-use App\Models\admins;
+
 use   Illuminate\Routing\Controller as Controller;
 use Illuminate\Http\Request;
 use App\Models\paper_stars;
