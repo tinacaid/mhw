@@ -58,7 +58,7 @@ class paper_stars extends Authenticatable implements JWTSubject
                 try {
                     $data = paper_stars::where('student_id', $id)
                         ->get([
-                            'journal_name', 'paper_title', 'ranking_total', 'publication_time', 'materials', 'status', 'created_at', 'updated_at', 'rejection_reason'
+                            'journal_name', 'paper_title',  'publication_time', 'materials', 'status',  'rejection_reason'
                         ]);
                     return $data;
                 } catch (Exception $e) {
