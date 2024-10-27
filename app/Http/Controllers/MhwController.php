@@ -1,6 +1,10 @@
 <?php
 
 namespace App\Http\Controllers;
+<<<<<<< HEAD
+=======
+
+>>>>>>> c29a0e1632aa3ccc104f8868fccb9bf26cbf12d7
 use   Illuminate\Routing\Controller as Controller;
 use Illuminate\Http\Request;
 use App\Models\paper_stars;
@@ -9,6 +13,10 @@ use Illuminate\Support\Facades\Storage;
 
 class MhwController extends Controller//发表论文
 {
+<<<<<<< HEAD
+=======
+   
+>>>>>>> c29a0e1632aa3ccc104f8868fccb9bf26cbf12d7
 
     public function Mhwpapershanxun(Request $request)
     {
@@ -53,3 +61,7 @@ class MhwController extends Controller//发表论文
 }
 
 
+<<<<<<< HEAD
+=======
+ 
+>>>>>>> c29a0e1632aa3ccc104f8868fccb9bf26cbf12d7
