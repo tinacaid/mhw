@@ -26,14 +26,6 @@ class admins extends Authenticatable implements JWTSubject
     {
         return ['role => admins'];
     }
-
-
-    protected $fillable = [
-        'account',
-        'password',
-        'major',
-    ];
-
 }
 
 
