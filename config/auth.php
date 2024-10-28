@@ -14,8 +14,10 @@ return [
     */
 
     'defaults' => [
-        'guard' => 'web',
-        'passwords' => 'users',
+//        'guard' => 'web',
+//        'passwords' => 'users',
+        'guard' => 'administrator', // 默认使用管理员守卫
+        'passwords' => 'admins', // 密码重置的提供程序
     ],
 
     /*
@@ -36,14 +38,12 @@ return [
     */
 
     'guards' => [
-        'web' => [
-            'driver' => 'session',
-            'provider' => 'users',
+
+        'administrator' => [
+            'driver' => 'jwt', // 使用 JWT 驱动
+            'provider' => 'admins', // 指向 admins 提供程序
         ],
-        'admin' => [
-            'driver' => 'jwt',
-            'provider' => 'admins',
-        ],
+
         'user' => [
             'driver' => 'jwt',
             'provider' => 'users',
@@ -53,11 +53,24 @@ return [
             'provider' => 'students',
             'hash' => false,
         ],
+
         'admins' => [
             'driver' => 'jwt',
+
+
+        'web' => [
+            'driver' => 'session',
+            'provider' => 'users',
+        ],
+
+        'api' => [
+            'driver' => 'token',
+
             'provider' => 'admins',
             'hash' => false,
         ],
+
+
     ],
 
     /*
@@ -82,11 +95,17 @@ return [
             'driver' => 'eloquent',
             'model' => App\Models\User::class,
         ],
+
         'admins' => [
             'driver' => 'eloquent',
             'model' => App\Models\admins::class,
         ],
         'students' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\students::class,
+        ],
+
+        'student' => [
             'driver' => 'eloquent',
             'model' => App\Models\students::class,
         ],
@@ -128,5 +147,5 @@ return [
     */
 
     'password_timeout' => 10800,
-
+]
 ];

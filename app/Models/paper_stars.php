@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+
 use Illuminate\Foundation\Auth\User as Authenticatable;//引用Authenticatable类使得DemoModel具有用户认证功能
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Support\Facades\DB;
@@ -11,17 +12,11 @@ use Exception;
 
 class paper_stars extends Authenticatable implements JWTSubject
 {
-    protected $fillable = [
-        'journal_name',
-        'paper_title',
-        'publication_time',
-        'materials',
-
-    ];
     protected $table = "paper_stars";
     public $timestamps = true;
     protected $primaryKey = "id";
     protected $guarded = [];
+
 
     //不知道有什么用
     use HasFactory;
@@ -46,9 +41,32 @@ class paper_stars extends Authenticatable implements JWTSubject
                 'paper_title' => $user['paper_title'],
                 'publication_time' => $user['publication_time'],//发表时间
                 'materials' => $user['materials'],
-                'student_id'=>$user['student_id'],
+                'student_id' => $user['student_id'],
             ]);
             return $add;
+        } catch (Exception $e) {
+            return 'error' . $e->getMessage();
+        }
+    }
+
+
+    public function student()
+    {
+        return $this->belongsTo(Students::class, 'student_id', 'id');
+    }
+
+    public static function create($data)
+    {
+        try {
+            $data = paper_stars::insert([
+                'student_id'=>$data['student_id'],
+                'journal_name' => $data['journal_name'],
+                'paper_title' => $data['paper_title'],
+                'publication_time' => $data['publication_time'],
+                'materials' => $data['materials'],
+                'ranking_total'=>$data['ranking_total'],
+            ]);
+            return $data;
         } catch (Exception $e) {
             return 'error' . $e->getMessage();
         }
@@ -85,4 +103,42 @@ public static function shanchu($user)
             return 'error ' . $e->getMessage();
         }
     }
+
+    public static function revise($student_id, $data)
+    {
+        try {
+            // 使用 update() 方法来更新记录
+            $affectedRows = paper_stars::where('student_id', $student_id)
+                ->update([
+                    'journal_name' => $data['journal_name'],
+                    'paper_title' => $data['paper_title'],
+                    'publication_time' => $data['publication_time'],
+                    'materials' => $data['materials'],
+                    'ranking_total'=>$data['ranking_total'],
+                ]);
+            // 返回受影响的行数
+            return $affectedRows;
+        } catch (Exception $e) {
+            return 'error: ' . $e->getMessage();
+        }
+    }
+
+    public static function revise_status($student_id, $data)
+    {
+        try {
+            // 使用 update() 方法来更新记录
+            $affectedRows = paper_stars::where('student_id', $student_id)
+                ->update([
+                    'status' => $data['status'],
+                    'rejection_reason' => isset($data['reason']) ? $data['reason'] : null,
+                ]);
+
+            // 返回受影响的行数
+            return $affectedRows;
+        } catch (Exception $e) {
+            return 'error: ' . $e->getMessage();
+        }
+    }
 }
+
+

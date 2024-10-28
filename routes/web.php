@@ -13,7 +13,4 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/upload-form', function () {
-    return view('upload');
-});
-Route::post('/upload', [\App\Http\Controllers\OSSUploadController::class, 'upload']);
+
